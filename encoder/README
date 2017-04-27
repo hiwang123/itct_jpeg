@@ -1,0 +1,23 @@
+Preface
+--------
+This is the JPEG baseline encoder(4:4:4) for NTU ITCT course
+Using standard quantize table and huffman table from "CCITT JPEG standard"
+More encode results can be found on https://github.com/hiwang123/itct_jpeg
+
+Compile
+--------
+make
+
+Usage
+--------
+./main [input .bmp] [output .jpg]
+
+Environment
+--------
+gcc version 5.4.0/6.3.1
+Tested and generated results on NTU CSIE workstation
+
+Copyright
+--------
+b04705006 Hsin-Yi, Wang
+2017-4

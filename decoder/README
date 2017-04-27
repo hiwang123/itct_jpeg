@@ -1,0 +1,22 @@
+Preface
+--------
+This is the JPEG baseline decoder for NTU ITCT course
+More decode results can be found on https://github.com/hiwang123/itct_jpeg
+
+Compile
+--------
+make
+
+Usage
+--------
+./main [input .jpg] [output .bmp]
+
+Environment
+--------
+gcc version 5.4.0/6.3.1
+Tested and generated results on NTU CSIE workstation
+
+Copyright
+--------
+b04705006 Hsin-Yi, Wang
+2017-4
