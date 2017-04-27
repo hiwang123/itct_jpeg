@@ -25,9 +25,14 @@ void init(char *src, char *dst){
 			fread(&R, 1, 1, fs);
 			fread(&G, 1, 1, fs);
 			fread(&B, 1, 1, fs);
+			/* bad
 			bmp.p[i][j].YCrCb[1] = clip(round(0.299*R + 0.587*G + 0.114*B));
 			bmp.p[i][j].YCrCb[2] = clip(round(0.5*R -0.419*G -0.081*B + 128));
 			bmp.p[i][j].YCrCb[3] = clip(round(-0.169*R -0.331*G + 0.5*B + 128));
+			*/
+			bmp.p[i][j].YCrCb[1] = clip(round(0.2126*R + 0.7152*G + 0.0722*B));
+			bmp.p[i][j].YCrCb[2] = clip(round(0.615*R -0.55861*G -0.05639*B + 128));
+			bmp.p[i][j].YCrCb[3] = clip(round(-0.09991*R -0.33609*G + 0.436*B + 128));
 		}
 		fread(bmppad,1,(4-(bmp.H*3)%4)%4,fs);
 	}

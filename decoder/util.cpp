@@ -63,8 +63,6 @@ void fill_pixel(int st_v, int st_h, int scale_v, int scale_h, int chnl,int val){
 	st_v*=scale_v;
 	st_h*=scale_h;
 	val += 128;     // left shift(+128)
-	val=min(255,val);
-	val=max(0,val);
 
 	for(int i=0;i<scale_v;i++)
 		for(int j=0;j<scale_h;j++){
@@ -103,16 +101,21 @@ void output_bmp(char *filename){
 		out = (uint8_t*) malloc(3*bmp.H);
 		for(int j=0;j<bmp.H; j++){
 			 double Y = bmp.p[i][j].YCrCb[1],Cr = bmp.p[i][j].YCrCb[2], Cb = bmp.p[i][j].YCrCb[3];
-			 // #1 coef
-			 uint8_t R = clip(round(Y + 1.13983 * (Cr-128)));
-             uint8_t G = clip(round(Y - 0.39465 * (Cb-128) - 0.58060 * (Cr-128)));
-             uint8_t B = clip(round(Y + 2.03211 * (Cb-128)));
-             // #2 coef (tsan zhi...)
-             //uint8_t R = clip(round(Y + 1.402 * (Cr-128)));
-             //uint8_t G = clip(round(Y - 0.344 * (Cb-128) - 0.714 * (Cr-128)));
-             //uint8_t B = clip(round(Y + 1.772 * (Cb-128)));
-             out[3*j]=R, out[3*j+1]=G, out[3*j+2]=B;
-			 //printf("%d %d %d %d %d %d %d %d\n",i,j,(int)R,(int)G,(int)B,(int)Y,(int)Cr,(int)Cb);
+
+			 double R = Y + 1.28033 * (Cr-128);
+             double G = Y - 0.21482 * (Cb-128) - 0.38059 * (Cr-128);
+             double B = Y + 2.12798 * (Cb-128);
+			 /* ok
+			 double R = Y + 1.13983 * (Cr-128);
+             double G = Y - 0.39465 * (Cb-128) - 0.58060 * (Cr-128);
+             double B = Y + 2.03211 * (Cb-128);
+             */
+             /* bad
+             uint8_t R = Y + 1.402 * (Cr-128);
+             uint8_t G = Y - 0.344 * (Cb-128) - 0.714 * (Cr-128);
+             uint8_t B = Y + 1.772 * (Cb-128);
+             */
+             out[3*j]=clip2(round(R)), out[3*j+1]=clip2(round(G)), out[3*j+2]=clip2(round(B));
 		}
 		fwrite(out,3,bmp.H,fout);
 		fwrite(bmppad,1,(4-(bmp.H*3)%4)%4,fout);
