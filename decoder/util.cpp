@@ -115,7 +115,7 @@ void output_bmp(char *filename){
              uint8_t G = Y - 0.344 * (Cb-128) - 0.714 * (Cr-128);
              uint8_t B = Y + 1.772 * (Cb-128);
              */
-             out[3*j]=clip2(round(R)), out[3*j+1]=clip2(round(G)), out[3*j+2]=clip2(round(B));
+             out[3*j]=clip(round(R)), out[3*j+1]=clip(round(G)), out[3*j+2]=clip(round(B));
 		}
 		fwrite(out,3,bmp.H,fout);
 		fwrite(bmppad,1,(4-(bmp.H*3)%4)%4,fout);

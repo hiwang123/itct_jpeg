@@ -53,7 +53,7 @@ struct Mcu{
 };
 
 struct Pixel{
-	uint8_t YCrCb[4];
+	int YCrCb[4];
 };
 
 struct Bmp{
